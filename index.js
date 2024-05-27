@@ -27,7 +27,11 @@ app.use(bodyParser.json())
 app.get('/', (req, res)=>{
     //Вказуємо 200 - успішний статус
     //json - тіло відповіді - повідомлення
-    res.status(200).json("Сервер працює");
+
+    
+    // res.status(200).json("Сервер працює");
+    //! Запуск головної сторінки
+    res.render('index.ejs');
 })
 //Require client routes
 const clientRoutes = require('./router/client.routes')
@@ -39,6 +43,8 @@ app.use('/api/pharmacist', pharmacistRoutes);
 //Require client routes
 const supplierRoutes = require('./router/suppplier.router')
 app.use('/api/supplier', supplierRoutes); 
+//!Щоб на сервері бачити усі рішення
+app.use(express.static("."));
 //Створюємо екзепляр застосунку
 //вхід
 //порт

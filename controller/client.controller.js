@@ -1,10 +1,18 @@
+//!ДОДАЄМО ДЛЯ ВИВЕДЕННЯ
+const express = require('express')
+var app = express();
+var path = require('path');
+app.engine('ejs', require('ejs').__express);
+
 const Client = require('../model/client.model');
 exports.findAll = function (req, res) {
     Client.findAll(function(err, client){
         console.log('controller');
         if (err)
             res.send(err);
-        res.send(client);
+        //! З'єднаємо з файлом виведення
+        res.render('client.ejs', {Client: client});
+        //res.send(client);
     });
 };
 exports.create = function (req, res) {
@@ -16,7 +24,9 @@ exports.create = function (req, res) {
         Client.create(new_client, function (err, client) {
             if(err)
                 res.send(err);
-            res.json({error : false, message: 'client added successfully!', data: client});
+            //!Переходимо на сторінку з таблицею клієнтів
+            res.redirect('/api/client')
+            // res.json({error : false, message: 'client added successfully!', data: client});
         });
     }
 };
@@ -25,7 +35,9 @@ exports.findById = function (req, res) {
     Client.findByID(req.params.id, function(err, client){
         if (err)
             res.send(err);
-        res.json(client);
+        //!Перехід на сторінку редагування
+        res.render('client_edit.ejs', {Client: client});
+        // res.json(client);
     });
 };
 //редагування інформації
@@ -36,7 +48,9 @@ exports.update = function (req, res) {
         Client.update(req.params.id, new Client(req.body), function(err, client){
             if(err)
                 res.send(err);
-            res.json({error: false, message: 'client successfully update'});
+            //!Повернення на сторінку з таблицею клієнтів
+            res.redirect('/api/client')
+            //res.json({error: false, message: 'client successfully update'});
         });
     }
 };
@@ -46,6 +60,7 @@ exports.delete = function (req, res) {
         console.log('HI'+req.params.id);
         if(err)
             res.send(err);
-        res.json({error: false, message: 'client successfully deleted'});
+        res.redirect('/api/client')
+        // res.json({error: false, message: 'client successfully deleted'});
     });
 };

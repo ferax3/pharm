@@ -8,8 +8,13 @@ router.post('/', pharmacistController.create);//
 //Пошук фармацевта за id
 router.get('/:id', pharmacistController.findById);//
 //Редагування фармацевта id
-router.put('/:id', pharmacistController.update);//
+// router.put('/:id', pharmacistController.update);//
+router.post('/put/:id', pharmacistController.update);
+
 //Видалення фармацевта за id
-router.delete('/:id', pharmacistController.delete);//
+// router.delete('/:id', pharmacistController.delete);//
+router.get('/delete/:id', pharmacistController.delete);
+
+
 //Експортуємо за замовченням router
 module.exports = router

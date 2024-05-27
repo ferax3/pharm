@@ -1,10 +1,18 @@
+//!ДОДАЄМО ДЛЯ ВИВЕДЕННЯ
+const express = require('express')
+var app = express();
+var path = require('path');
+app.engine('ejs', require('ejs').__express);
+
 const Pharmacist = require('../model/pharmacist.model');
 exports.findAll = function (req, res) {
     Pharmacist.findAll(function(err, pharmacist){
         console.log('controller_Ph');
         if (err)
             res.send(err);
-        res.send(pharmacist);
+        //! З'єднаємо з файлом виведення
+        res.render('pharmacist.ejs', {Pharmacist: pharmacist});
+        //res.send(pharmacist);
     });
 };
 exports.create = function (req, res) {
@@ -16,7 +24,9 @@ exports.create = function (req, res) {
         Pharmacist.create(new_pharmacist, function (err, pharmacist) {
             if(err)
                 res.send(err);
-            res.json({error : false, message: 'pharmacist added successfully!', data: pharmacist});
+            //!Переходимо на сторінку з таблицею клієнтів
+            res.redirect('/api/pharmacist')
+            //res.json({error : false, message: 'pharmacist added successfully!', data: pharmacist});
         });
     }
 };
@@ -25,7 +35,9 @@ exports.findById = function (req, res) {
     Pharmacist.findByID(req.params.id, function(err, pharmacist){
         if (err)
             res.send(err);
-        res.json(pharmacist);
+        //!Перехід на сторінку редагування
+        res.render('pharmacist_edit.ejs', {Pharmacist: pharmacist});
+        // res.json(pharmacist);
     });
 };
 //редагування інформації
@@ -36,7 +48,9 @@ exports.update = function (req, res) {
         Pharmacist.update(req.params.id, new Pharmacist(req.body), function(err, pharmacist){
             if(err)
                 res.send(err);
-            res.json({error: false, message: 'pharmacist successfully update'});
+            //!Повернення на сторінку з таблицею клієнтів
+            res.redirect('/api/pharmacist')
+            //res.json({error: false, message: 'pharmacist successfully update'});
         });
     }
 };
@@ -46,6 +60,7 @@ exports.delete = function (req, res) {
         console.log('HI'+req.params.id);
         if(err)
             res.send(err);
-        res.json({error: false, message: 'pharmacist successfully deleted'});
+        res.redirect('/api/pharmacist')
+        // res.json({error: false, message: 'pharmacist successfully deleted'});
     });
 };

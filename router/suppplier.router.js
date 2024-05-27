@@ -8,8 +8,12 @@ router.post('/', supplierController.create);//
 //Пошук клієнта за id
 router.get('/:id', supplierController.findById);//
 //Редагування клієнта id
-router.put('/:id', supplierController.update);//
+// router.put('/:id', supplierController.update);//
+router.post('/put/:id', supplierController.update);
+
 // Видалення клієнта за id
-router.delete('/:id', supplierController.delete);//
+// router.delete('/:id', supplierController.delete);//
+router.get('/delete/:id', supplierController.delete);
+
 //Експортуємо за замовченням router
 module.exports = router

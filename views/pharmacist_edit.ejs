@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- сторінка css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Редагування</title>
+</head>
+<body class="body">
+    <h1 class="text-center">Редагувати фармацевтів</h1>
+    <form action="" method="POST" class="text-center">
+        <div class="mb-3">
+            <label class="form-label">
+                ID фармацевта
+                <input type="number" placeholder="id" class="form-control" id="id_pharmacist" name="id_pharmacist" min="1"
+                value= <%= Pharmacist[0].id_pharmacist %> >
+            </label>
+            <label class="form-label">
+                Повне ім'я
+                <input type="text" placeholder="Повне ім'я" class="form-control" id="full_name" name="full_name" 
+                style="width: 300px;" value= "<%= Pharmacist[0].full_name %>" >
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary" formaction="/api/pharmacist/put/<%= Pharmacist[0].id_pharmacist%>">Редагувати</button>
+        <a class="btn btn-info" href="/api/pharmacist">Повернутися</a>
+    </form>
+</body>
+</html>
